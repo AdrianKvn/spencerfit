@@ -1,4 +1,7 @@
+'use client'
+
 import CheckoutButton from '@/components/CheckoutButton'
+import { useLang } from "@/lib/LanguageContext"
 
 interface Program {
   id: string;
@@ -8,6 +11,7 @@ interface Program {
   price: string;
   description: string;
   featured?: boolean;
+  index: number;
 }
 
 const programs: Program[] = [
@@ -15,134 +19,209 @@ const programs: Program[] = [
     id: "fuerza-12",
     name: "Programa Fuerza 12 Semanas",
     badge: "STRENGTH",
-    badgeColor: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+    badgeColor: "text-[#ffffff]",
     price: "$49",
     description: "Construye una base sólida de fuerza con periodización progresiva y técnica perfecta.",
+    index: 0,
   },
   {
     id: "hipertrofia-avanzada",
     name: "Hipertrofia Avanzada",
-    badge: "HYPERTROPHY",
-    badgeColor: "bg-purple-500/20 text-purple-400 border-purple-500/30",
+    badge: "AVANZADO",
+    badgeColor: "text-[#e8c547]",
     price: "$59",
     description: "Maximiza el crecimiento muscular con técnicas avanzadas de volumen e intensidad.",
+    index: 1,
   },
   {
     id: "fat-loss-cardio",
     name: "Fat Loss + Cardio",
-    badge: "HYBRID",
-    badgeColor: "bg-green-500/20 text-green-400 border-green-500/30",
+    badge: "HÍBRIDO",
+    badgeColor: "text-[#ffffff]",
     price: "$39",
     description: "Quema grasa mientras preservas músculo con el protocolo de entrenamiento híbrido.",
+    index: 2,
   },
   {
     id: "powerbuilding-pack",
-    name: "Powerbuilding Pack ★",
-    badge: "PACK",
-    badgeColor: "bg-[#f97316]/20 text-[#f97316] border-[#f97316]/30",
+    name: "Powerbuilding Pack",
+    badge: "★ COMPLETO",
+    badgeColor: "text-[#ccff00]",
     price: "$89",
     description: "El pack completo: fuerza + hipertrofia + fat loss. La transformación total.",
     featured: true,
+    index: 3,
   },
 ];
 
-const gradients = [
-  "from-blue-900/40 via-[#111] to-[#0a0a0a]",
-  "from-purple-900/40 via-[#111] to-[#0a0a0a]",
-  "from-green-900/40 via-[#111] to-[#0a0a0a]",
-  "from-orange-900/40 via-[#111] to-[#0a0a0a]",
-];
-
 export default function ProgramsSection() {
+  const { t } = useLang();
   return (
     <section
       id="programas"
       data-testid="programs-section"
-      className="bg-[#0a0a0a] py-24 lg:py-32"
+      className="bg-[#050505] py-28 lg:py-36 relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Background number */}
+      <div
+        className="absolute -top-8 right-0 select-none pointer-events-none"
+        aria-hidden="true"
+        style={{
+          fontFamily: "'Bebas Neue', sans-serif",
+          fontSize: "clamp(160px, 25vw, 320px)",
+          color: "#1e1e1e",
+          lineHeight: 1,
+          letterSpacing: "-0.02em",
+        }}
+      >
+        01
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
+
         {/* Section header */}
-        <div className="flex flex-col gap-4 mb-16 text-center">
-          <span className="text-[#f97316] text-sm font-bold tracking-[0.3em] uppercase">
-            Entrena con un plan
-          </span>
+        <div className="flex flex-col gap-6 mb-20">
+          <div className="flex items-center gap-4">
+            <div className="w-8 h-px bg-[#ccff00]" aria-hidden="true" />
+            <span
+              className="text-[#ccff00] text-[10px] tracking-[0.4em] uppercase"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
+            >
+              {t.programs.eyebrow}
+            </span>
+          </div>
           <h2
             data-testid="programs-title"
-            className="text-4xl sm:text-5xl font-black tracking-tight"
+            className="leading-none"
+            style={{
+              fontFamily: "'Bebas Neue', sans-serif",
+              fontSize: "clamp(3.5rem, 7vw, 6rem)",
+              letterSpacing: "0.02em",
+              lineHeight: 0.95,
+            }}
           >
-            PROGRAMAS DE{" "}
-            <span className="text-[#f97316]">ENTRENAMIENTO</span>
+            {t.programs.title1}<br />
+            <span className="text-[#ccff00]">{t.programs.title2}</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Cada programa está diseñado para un objetivo específico. Elige el
-            tuyo y empieza hoy.
+          <p
+            className="text-[#555555] text-[15px] max-w-lg leading-relaxed mt-2"
+            style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
+          >
+            {t.programs.subtitle}
           </p>
         </div>
 
         {/* Programs grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {programs.map((program, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[#141414]">
+          {programs.map((program) => (
             <article
               key={program.id}
               data-testid={`program-card-${program.id}`}
-              className={`relative flex flex-col rounded-2xl overflow-hidden border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#f97316]/10 ${
-                program.featured
-                  ? "border-[#f97316]/40"
-                  : "border-white/10 hover:border-white/20"
-              }`}
+              className="relative flex flex-col bg-[#050505] p-7 overflow-hidden group cursor-pointer
+                transition-all duration-300
+                hover:bg-[#0d0d0d]
+                hover:-translate-y-1
+                hover:shadow-[0_8px_40px_rgba(204,255,0,0.15)]"
             >
-              {program.featured && (
-                <div className="absolute top-3 right-3 z-10 bg-[#f97316] text-white text-xs font-bold px-2 py-0.5 rounded tracking-wide">
-                  POPULAR
-                </div>
-              )}
-
-              {/* Image placeholder */}
+              {/* Lima eléctrico que crece desde abajo al hacer hover */}
               <div
-                className={`relative w-full aspect-video bg-gradient-to-br ${gradients[index]}`}
+                className="absolute inset-x-0 bottom-0 h-0 bg-[#ccff00] transition-all duration-500 ease-out group-hover:h-1"
+                aria-hidden="true"
+              />
+
+              {/* Brillo lateral izquierdo */}
+              <div
+                className="absolute inset-y-0 left-0 w-0 bg-gradient-to-r from-[#ccff00]/15 to-transparent transition-all duration-500 group-hover:w-full"
+                aria-hidden="true"
+              />
+
+              {/* Borde superior activo en featured o en hover */}
+              <div
+                className={`absolute top-0 left-0 right-0 h-[2px] transition-all duration-300 ${
+                  program.featured
+                    ? "bg-[#ccff00]"
+                    : "bg-transparent group-hover:bg-[#ccff00]/50"
+                }`}
+                aria-hidden="true"
+              />
+
+              {/* Card number — visible y se ilumina en hover */}
+              <span
+                className="mb-4 block transition-colors duration-300 text-[#282828] group-hover:text-[#ccff00]/30"
+                style={{
+                  fontFamily: "'Bebas Neue', sans-serif",
+                  fontSize: "3rem",
+                  lineHeight: 1,
+                  letterSpacing: "0.04em",
+                }}
                 aria-hidden="true"
               >
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <svg
-                    className="w-12 h-12 text-white/10"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z" />
-                  </svg>
-                </div>
-              </div>
+                {String(program.index + 1).padStart(2, "0")}
+              </span>
 
-              {/* Card content */}
-              <div className="flex flex-col gap-4 p-5 bg-[#111] flex-1">
+              <div className="relative flex flex-col gap-4 flex-1">
+                {/* Badge */}
                 <span
-                  className={`self-start text-xs font-bold px-2.5 py-1 rounded border tracking-widest ${program.badgeColor}`}
+                  className={`text-[9px] font-medium tracking-[0.35em] uppercase transition-colors duration-300 ${program.badgeColor}`}
+                  style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
                   {program.badge}
+                  {program.featured && (
+                    <span className="ml-2 text-[#555555]">{t.programs.popular}</span>
+                  )}
                 </span>
 
-                <div className="flex flex-col gap-2 flex-1">
-                  <h3 className="font-bold text-white leading-snug">
-                    {program.name}
-                  </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
-                    {program.description}
-                  </p>
-                </div>
+                {/* Name — se vuelve lima en hover */}
+                <h3
+                  className="leading-tight transition-colors duration-300 text-[#ffffff] group-hover:text-[#ccff00]"
+                  style={{
+                    fontFamily: "'Bebas Neue', sans-serif",
+                    fontSize: "1.6rem",
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  {program.name}
+                </h3>
 
-                <div className="flex items-center justify-between pt-3 border-t border-white/10">
+                {/* Description — se aclara en hover */}
+                <p
+                  className="text-[13px] leading-relaxed flex-1 transition-colors duration-300 text-[#555555] group-hover:text-[#888888]"
+                  style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
+                >
+                  {program.description}
+                </p>
+              </div>
+
+              {/* Price + CTA */}
+              <div className="relative flex items-end justify-between mt-8 pt-6 border-t border-[#141414] group-hover:border-[#ccff00]/20 transition-colors duration-300">
+                <div className="flex flex-col gap-0.5">
+                  <span
+                    className="text-[#555555] text-[9px] tracking-[0.3em] uppercase"
+                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  >
+                    {t.programs.priceLabel}
+                  </span>
                   <span
                     data-testid={`program-price-${program.id}`}
-                    className="text-2xl font-black text-[#f97316]"
+                    className="transition-colors duration-300 text-[#ffffff] group-hover:text-[#ccff00]"
+                    style={{
+                      fontFamily: "'Bebas Neue', sans-serif",
+                      fontSize: "2rem",
+                      letterSpacing: "0.04em",
+                      lineHeight: 1,
+                    }}
                   >
                     {program.price}
                   </span>
-                  <CheckoutButton
-                    productId={program.id}
-                    className="w-full px-4 py-3 bg-[#f97316] hover:bg-[#ea6c0a] text-white text-sm font-bold tracking-widest uppercase rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  />
                 </div>
+                <CheckoutButton
+                  productId={program.id}
+                  className={`px-5 py-3 text-[10px] font-medium tracking-[0.2em] uppercase transition-all duration-300 ${
+                    program.featured
+                      ? "bg-[#ccff00] text-[#050505] hover:opacity-90"
+                      : "border border-[#222222] text-[#555555] group-hover:border-[#ccff00] group-hover:text-[#ccff00]"
+                  } disabled:opacity-30 disabled:cursor-not-allowed`}
+                />
               </div>
             </article>
           ))}

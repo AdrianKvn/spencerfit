@@ -1,113 +1,203 @@
+'use client'
+
+import { useLang } from "@/lib/LanguageContext"
+
 export default function AboutSection() {
+  const { t } = useLang();
   return (
     <section
       id="sobre-mi"
       data-testid="about-section"
-      className="bg-[#0a0a0a] py-24 lg:py-32"
+      className="bg-[#050505] py-28 lg:py-36 relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      {/* Background number */}
+      <div
+        className="absolute -top-8 right-0 select-none pointer-events-none"
+        aria-hidden="true"
+        style={{
+          fontFamily: "'Bebas Neue', sans-serif",
+          fontSize: "clamp(160px, 25vw, 320px)",
+          color: "#1e1e1e",
+          lineHeight: 1,
+          letterSpacing: "-0.02em",
+        }}
+      >
+        03
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[480px_1fr] gap-16 lg:gap-24 items-start">
+
           {/* Left: Photo placeholder */}
           <div
             data-testid="about-image"
-            className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden order-2 lg:order-1"
+            className="relative w-full aspect-[4/5] order-2 lg:order-1"
             aria-label="Foto de Spencer Fit"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] via-[#0f0f0f] to-[#0a0a0a]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#f97316]/15 via-transparent to-transparent" />
+            {/* Offset border decoration */}
+            <div
+              className="absolute -bottom-4 -left-4 border border-[#222222]"
+              style={{ width: "calc(100% + 16px)", height: "calc(100% + 16px)" }}
+              aria-hidden="true"
+            />
 
-            {/* Decorative elements */}
-            <div className="absolute top-6 left-6 w-16 h-16 border border-[#f97316]/30 rounded-xl" aria-hidden="true" />
-            <div className="absolute bottom-6 right-6 w-24 h-24 border border-[#f97316]/20 rounded-full" aria-hidden="true" />
+            <div className="relative w-full h-full bg-[#141414] overflow-hidden">
+              {/* Side accent bar */}
+              <div
+                className="absolute top-0 bottom-0 left-0 w-1.5 bg-[#ccff00]"
+                aria-hidden="true"
+              />
 
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-              <div className="w-24 h-24 rounded-full bg-[#f97316]/10 border-2 border-[#f97316]/40 flex items-center justify-center">
-                <svg
-                  className="w-12 h-12 text-[#f97316]/50"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
+              {/* Horizontal lines texture */}
+              <div
+                className="absolute inset-0 opacity-20"
+                style={{
+                  backgroundImage: "repeating-linear-gradient(90deg, transparent, transparent 30px, #222222 30px, #222222 31px)",
+                }}
+                aria-hidden="true"
+              />
+
+              {/* Placeholder */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+                <div className="w-20 h-20 rounded-full border border-[#222222] flex items-center justify-center">
+                  <svg
+                    className="w-10 h-10 text-[#222222]"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                  </svg>
+                </div>
+                <span
+                  className="text-[#222222] text-[10px] tracking-[0.4em] uppercase"
+                  style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                </svg>
+                  FOTO SPENCER
+                </span>
               </div>
-              <span className="text-white/30 text-sm font-bold tracking-widest uppercase">
-                FOTO SPENCER
-              </span>
-            </div>
 
-            {/* Highlight badge */}
-            <div className="absolute bottom-6 left-6 bg-black/80 backdrop-blur-sm border border-[#f97316]/30 rounded-xl px-4 py-3">
-              <div className="text-2xl font-black text-[#f97316]">5+</div>
-              <div className="text-gray-400 text-xs uppercase tracking-wide">Años de experiencia</div>
+              {/* Badge */}
+              <div className="absolute bottom-6 right-6 bg-[#050505] border border-[#222222] px-4 py-3">
+                <div
+                  className="text-[#ccff00]"
+                  style={{
+                    fontFamily: "'Bebas Neue', sans-serif",
+                    fontSize: "2rem",
+                    letterSpacing: "0.04em",
+                    lineHeight: 1,
+                  }}
+                >
+                  5+
+                </div>
+                <div
+                  className="text-[#555555] text-[9px] tracking-[0.3em] uppercase mt-0.5"
+                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                >
+                  {t.about.yearsLabel}
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Right: Content */}
-          <div className="flex flex-col gap-8 order-1 lg:order-2">
-            <div className="flex flex-col gap-4">
-              <span className="text-[#f97316] text-sm font-bold tracking-[0.3em] uppercase">
-                Conoce al entrenador
+          <div className="flex flex-col gap-10 order-1 lg:order-2 lg:pt-6">
+
+            {/* Eyebrow */}
+            <div className="flex items-center gap-4">
+              <div className="w-8 h-px bg-[#ccff00]" aria-hidden="true" />
+              <span
+                className="text-[#ccff00] text-[10px] tracking-[0.4em] uppercase"
+                style={{ fontFamily: "'DM Sans', sans-serif" }}
+              >
+                {t.about.eyebrow}
               </span>
+            </div>
+
+            {/* Title */}
+            <div>
               <h2
                 data-testid="about-title"
-                className="text-4xl sm:text-5xl font-black tracking-tight"
+                className="leading-none text-[#ffffff]"
+                style={{
+                  fontFamily: "'Bebas Neue', sans-serif",
+                  fontSize: "clamp(3.5rem, 6vw, 5.5rem)",
+                  letterSpacing: "0.02em",
+                  lineHeight: 0.95,
+                }}
               >
-                SPENCER <span className="text-[#f97316]">FIT</span>
+                SPENCER
               </h2>
+              <span
+                className="text-[#ccff00] block mt-1"
+                style={{
+                  fontFamily: "'DM Serif Display', serif",
+                  fontStyle: "italic",
+                  fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)",
+                  lineHeight: 1.1,
+                }}
+              >
+                fit
+              </span>
+              {/* Texto accesible para tests */}
+              <span className="sr-only">Spencer Fit</span>
             </div>
 
+            {/* Bio */}
             <div
               data-testid="about-bio"
-              className="flex flex-col gap-5 text-gray-400 leading-relaxed"
+              className="flex flex-col gap-5"
+              style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
             >
-              <p>
-                Soy Spencer, entrenador personal certificado con más de 5 años
-                de experiencia en el mundo del fitness de alto rendimiento. Mi
-                pasión nació en el gimnasio cuando descubrí el poder
-                transformador del entrenamiento con pesas y la disciplina que
-                construye no solo cuerpos, sino caracteres.
-              </p>
-              <p>
-                A lo largo de mi carrera he trabajado con más de 200 atletas de
-                todos los niveles, desde principiantes hasta competidores de
-                élite. Mi metodología combina ciencia del ejercicio, nutrición
-                práctica y mentalidad de campeón para crear transformaciones
-                reales y sostenibles.
-              </p>
-              <p>
-                Cada programa que diseño lleva mi sello personal: resultados
-                medibles, técnica impecable y progresión constante. No creo en
-                los atajos, creo en el trabajo inteligente y consistente.
-              </p>
+              <p className="text-[#555555] text-[14px] leading-relaxed">{t.about.bio1}</p>
+              <p className="text-[#555555] text-[14px] leading-relaxed">{t.about.bio2}</p>
             </div>
 
-            {/* Featured quote */}
+            {/* Quote */}
             <blockquote
               data-testid="about-quote"
-              className="border-l-4 border-[#f97316] pl-6 py-2"
+              className="flex gap-5 items-start py-2"
             >
-              <p className="text-xl font-black text-[#f97316] italic leading-snug">
-                "La disciplina construye campeones"
+              <div
+                className="text-[#ccff00] shrink-0"
+                style={{
+                  fontFamily: "'Bebas Neue', sans-serif",
+                  fontSize: "3rem",
+                  lineHeight: 0.7,
+                }}
+                aria-hidden="true"
+              >
+                "
+              </div>
+              <p
+                className="text-[#ffffff]"
+                style={{
+                  fontFamily: "'DM Serif Display', serif",
+                  fontStyle: "italic",
+                  fontSize: "1.2rem",
+                  lineHeight: 1.5,
+                }}
+              >
+                {t.about.quote}
               </p>
-              <footer className="text-gray-500 text-sm mt-2">— Spencer Fit</footer>
             </blockquote>
 
             {/* Credentials */}
-            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
-              {[
-                { label: "Certificación NSCA", icon: "🏅" },
-                { label: "Nutrición Deportiva", icon: "🥗" },
-                { label: "Powerlifting Coach", icon: "🏋️" },
-                { label: "Online Coaching", icon: "💻" },
-              ].map((credential) => (
+            <div className="grid grid-cols-2 gap-px bg-[#222222] border border-[#222222]">
+              {t.about.credentials.map((label, i) => (
                 <div
-                  key={credential.label}
-                  className="flex items-center gap-3 p-3 bg-[#111] rounded-lg border border-white/10"
+                  key={label}
+                  className="flex items-center gap-3 p-4 bg-[#050505]"
                 >
-                  <span className="text-lg" aria-hidden="true">{credential.icon}</span>
-                  <span className="text-gray-300 text-sm font-medium">
-                    {credential.label}
+                  <span
+                    className="text-[#ccff00] shrink-0"
+                    style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "0.75rem", letterSpacing: "0.08em" }}
+                    aria-hidden="true"
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[#555555] text-[12px]" style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400 }}>
+                    {label}
                   </span>
                 </div>
               ))}
